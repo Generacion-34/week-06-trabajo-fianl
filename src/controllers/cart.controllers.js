@@ -76,7 +76,7 @@ const update = catchError(async (req, res) => {
 
   const result = await Cart.update(
     req.body,
-    { where: { id }, returning: true }
+    { where: { id, userId: req.user.id }, returning: true }
   );
   if (result[0] === 0) return res.sendStatus(404);
   return res.json(result[1][0]);
