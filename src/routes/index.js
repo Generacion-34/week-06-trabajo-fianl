@@ -10,6 +10,6 @@ const router = express.Router();
 router.use('/users', routerUser)
 router.use('/categories', routerCategory)
 router.use('/products', routerProduct)
-router.use('/carts', verifyJwt, routerCart) //! todas las rutas quedan protegidas 🔐
+router.use('/cart', verifyJwt, routerCart) //! todas las rutas quedan protegidas 🔐
 
 module.exports = router;
