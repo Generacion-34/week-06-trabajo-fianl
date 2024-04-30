@@ -41,11 +41,13 @@ beforeAll(async () => {
     productId: product.id
   }
 
-  //no lo necesito borrar, porque cuando corra el test del post creara la compra y eliminar el carrito de compra, por eso no lo guardo en variable
+
   await request(app)
     .post('/api/v1/cart')
     .send(bodyCart)
     .set("Authorization", `Bearer ${TOKEN}`)
+
+  //! no necesito borrar el carrito, ya que cuando corra el test del post creara la compra y eliminara el carrito de compra, por eso no lo guardo en variable a la instancia
 })
 
 test("POST 'URL_BASE', should return status code 201 and res.body.quantity ===bodyCart.quantity", async () => {
