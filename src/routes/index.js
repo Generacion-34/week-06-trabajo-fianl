@@ -12,6 +12,6 @@ router.use('/users', routerUser)
 router.use('/categories', routerCategory)
 router.use('/products', routerProduct)
 router.use('/cart', verifyJwt, routerCart) //! todas las rutas quedan protegidas 🔐
-router.use('/purchase', verifyJwt, routerPurchase)
+router.use('/purchase', verifyJwt, routerPurchase) //! todas las rutas quedan protegidas 🔐
 
 module.exports = router;
