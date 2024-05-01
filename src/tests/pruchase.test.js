@@ -79,3 +79,8 @@ test("GET -> 'URL_BASE',should return status code 200 res.body.length === 1", as
 
   await product.destroy()
 })
+
+
+
+
+
