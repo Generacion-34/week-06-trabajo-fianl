@@ -3,6 +3,7 @@ require("../models")
 const Category = require("../models/Category")
 const request = require("supertest")
 const app = require('../app')
+const ProductImg = require("../models/ProductImg")
 
 const BASE_URL = '/api/v1/products'
 
@@ -10,6 +11,7 @@ let category
 let TOKEN
 let productId
 let product
+let image
 
 beforeAll(async () => {
 
@@ -87,6 +89,26 @@ test("PUT -> BASE_URL, should return statusCode 200, and res.body.title === body
 
 })
 
+test("POST -> 'URL_BASE/:id/images', should return status code 200, and res.body.length ===1", async () => {
+  const imageBody = {
+    url: 'lorem40',
+    filename: 'lorem10'
+  }
+
+  image = await ProductImg.create(imageBody)
+
+  const res = await request(app)
+    .post(`${BASE_URL}/${productId}/images`)
+    .send([image.id])
+    .set('Authorization', `Bearer ${TOKEN}`)
+
+  expect(res.status).toBe(200)
+  expect(res.body).toBeDefined()
+  expect(res.body).toHaveLength(1)
+
+})
+
+
 test('Delete -> BASE_URL, should return statusCode 204', async () => {
   const res = await request(app)
     .delete(`${BASE_URL}/${productId}`)
@@ -94,5 +116,6 @@ test('Delete -> BASE_URL, should return statusCode 204', async () => {
 
   expect(res.statusCode).toBe(204)
 
-  await category.destroy() //! siempre va en la ultima linea, del ultimo test del archivo
+  await category.destroy()
+  await image.destroy() //! siempre va en la ultima linea, del ultimo test del archivo
 })
